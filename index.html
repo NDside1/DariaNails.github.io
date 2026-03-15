@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
     <style>
-        /* Все стили остаются БЕЗ ИЗМЕНЕНИЙ */
+        /* Все стили остаются БЕЗ ИЗМЕНЕНИЙ, добавляем только исправления для мобильной версии */
         * {
             margin: 0;
             padding: 0;
@@ -17,18 +17,24 @@
 
         html {
             scroll-behavior: smooth;
+            overflow-x: hidden; /* Запрещаем горизонтальный скролл */
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden; /* Запрещаем горизонтальный скролл */
+            width: 100%;
+            position: relative;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px; /* Уменьшаем отступы для мобильных */
+            width: 100%;
+            overflow-x: hidden; /* Запрещаем горизонтальный скролл */
         }
 
         :root {
@@ -50,17 +56,46 @@
             cursor: pointer;
             border: none;
             font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            max-width: 100%; /* Ограничиваем ширину */
+            white-space: normal; /* Разрешаем перенос текста */
+            word-wrap: break-word;
+        }
+
+        /* Эффект бегущего блика для всех кнопок */
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 255, 255, 0.4),
+                transparent
+            );
+            transition: left 0.6s ease;
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
             background-color: var(--gold);
             color: var(--white);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
         }
 
         .btn-primary:hover {
             background-color: #b8960c;
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
         }
 
         .btn-outline {
@@ -72,6 +107,8 @@
         .btn-outline:hover {
             background-color: var(--gold);
             color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
         }
 
         header {
@@ -81,19 +118,24 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            left: 0; /* Фиксируем позицию */
+            right: 0;
         }
 
         .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 0;
+            padding: 12px 0; /* Уменьшаем отступы */
+            flex-wrap: wrap;
+            width: 100%;
         }
 
         .logo {
-            font-size: 24px;
+            font-size: 20px; /* Уменьшаем для мобильных */
             font-weight: 700;
             color: var(--text-dark);
+            white-space: nowrap;
         }
 
         .logo span {
@@ -121,6 +163,8 @@
             color: var(--text-dark);
             text-decoration: none;
             font-weight: 600;
+            font-size: 14px; /* Уменьшаем для мобильных */
+            white-space: nowrap;
         }
 
         .header-phone:hover {
@@ -134,29 +178,33 @@
         }
 
         .hero {
-            height: 100vh;
+            min-height: 100vh; /* Используем min-height вместо height */
+            height: auto;
             background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero-bg.jpg') center/cover;
             display: flex;
             align-items: center;
             text-align: center;
             color: var(--white);
-            margin-top: 70px;
+            margin-top: 60px; /* Уменьшаем для мобильных */
+            padding: 40px 0; /* Добавляем отступы */
         }
 
         .hero-content {
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 15px;
+            width: 100%;
         }
 
         .hero h1 {
-            font-size: 48px;
+            font-size: 42px; /* Уменьшаем для мобильных */
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            word-wrap: break-word;
         }
 
         .hero p {
-            font-size: 20px;
+            font-size: 18px; /* Уменьшаем для мобильных */
             margin-bottom: 30px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
@@ -165,81 +213,98 @@
             display: flex;
             gap: 20px;
             justify-content: center;
+            flex-wrap: wrap; /* Разрешаем перенос */
         }
 
         .about {
-            padding: 80px 0;
+            padding: 60px 0; /* Уменьшаем для мобильных */
             background-color: var(--primary);
         }
 
         .about-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 30px; /* Уменьшаем gap */
             align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            overflow: hidden; /* Предотвращаем выход за границы */
         }
 
         .about-image img {
             width: 100%;
+            max-width: 100%; /* Ограничиваем ширину */
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .about-text h2 {
-            font-size: 36px;
+            font-size: 32px; /* Уменьшаем для мобильных */
             margin-bottom: 20px;
             color: var(--text-dark);
         }
 
         .about-text p {
-            margin-bottom: 20px;
+            margin-bottom: 15px; /* Уменьшаем отступы */
             color: var(--text-light);
+            font-size: 15px; /* Немного уменьшаем */
         }
 
         .about-stats {
             display: flex;
-            gap: 30px;
+            gap: 20px; /* Уменьшаем gap */
             margin-top: 30px;
+            flex-wrap: wrap; /* Разрешаем перенос */
+            justify-content: center;
         }
 
         .stat-item {
             text-align: center;
+            min-width: 80px; /* Минимальная ширина */
         }
 
         .stat-number {
-            font-size: 32px;
+            font-size: 28px; /* Уменьшаем для мобильных */
             font-weight: 700;
             color: var(--gold);
         }
 
         .stat-label {
             color: var(--text-light);
+            font-size: 14px; /* Уменьшаем */
         }
 
         .services {
-            padding: 80px 0;
+            padding: 60px 0; /* Уменьшаем */
         }
 
         .section-title {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
+            font-size: 32px; /* Уменьшаем */
+            margin-bottom: 40px; /* Уменьшаем */
             color: var(--text-dark);
+            word-wrap: break-word;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Уменьшаем минимальную ширину */
+            gap: 20px; /* Уменьшаем gap */
         }
 
         .service-card {
             background-color: var(--white);
             border-radius: 10px;
-            padding: 30px;
+            padding: 20px; /* Уменьшаем padding */
             box-shadow: 0 5px 20px rgba(0,0,0,0.05);
             transition: transform 0.3s;
             border: 1px solid #f0f0f0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
         .service-card:hover {
@@ -248,38 +313,51 @@
         }
 
         .service-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
+            font-size: 36px; /* Уменьшаем */
+            margin-bottom: 15px; /* Уменьшаем */
         }
 
         .service-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
+            font-size: 18px; /* Уменьшаем */
+            margin-bottom: 10px; /* Уменьшаем */
             color: var(--text-dark);
         }
 
+        .service-card p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: var(--text-light);
+        }
+
         .service-price {
-            font-size: 24px;
+            font-size: 20px; /* Уменьшаем */
             font-weight: 700;
             color: var(--gold);
-            margin: 15px 0;
+            margin: 10px 0; /* Уменьшаем */
         }
 
         .service-duration {
             color: var(--text-light);
+            font-size: 13px; /* Уменьшаем */
+            margin-bottom: 15px; /* Уменьшаем */
+        }
+
+        .service-card .btn {
+            margin-top: auto; /* Прижимаем кнопку к низу */
+            width: 100%;
+            padding: 10px 20px; /* Уменьшаем */
             font-size: 14px;
-            margin-bottom: 20px;
         }
 
         .portfolio {
-            padding: 80px 0;
+            padding: 60px 0; /* Уменьшаем */
             background-color: #f9f9f9;
         }
 
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Уменьшаем для мобильных */
+            gap: 15px; /* Уменьшаем gap */
         }
 
         .portfolio-item {
@@ -288,6 +366,7 @@
             border-radius: 10px;
             cursor: pointer;
             aspect-ratio: 1;
+            width: 100%;
         }
 
         .portfolio-item img {
@@ -305,33 +384,36 @@
             display: none;
             position: fixed;
             z-index: 2000;
-            padding-top: 50px;
+            padding: 20px; /* Добавляем отступы */
             left: 0;
             top: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0,0,0,0.9);
+            overflow: auto; /* Добавляем скролл при необходимости */
         }
 
         .modal-content {
             margin: auto;
             display: block;
-            max-width: 80%;
-            max-height: 80%;
+            max-width: 90%; /* Уменьшаем для мобильных */
+            max-height: 90%;
+            object-fit: contain;
         }
 
         .close {
             position: absolute;
             top: 15px;
-            right: 35px;
+            right: 25px;
             color: #f1f1f1;
-            font-size: 40px;
+            font-size: 35px;
             font-weight: bold;
             cursor: pointer;
+            z-index: 2001;
         }
 
         .booking {
-            padding: 80px 0;
+            padding: 60px 0; /* Уменьшаем */
         }
 
         .booking-container {
@@ -339,13 +421,14 @@
             margin: 0 auto;
             background-color: var(--white);
             border-radius: 10px;
-            padding: 40px;
+            padding: 30px 20px; /* Уменьшаем padding */
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+            width: 100%;
         }
 
         .booking-form {
             display: grid;
-            gap: 20px;
+            gap: 15px; /* Уменьшаем gap */
         }
 
         .form-group {
@@ -357,16 +440,18 @@
             margin-bottom: 5px;
             font-weight: 500;
             color: var(--text-dark);
+            font-size: 14px; /* Уменьшаем */
         }
 
         .form-group input,
         .form-group select,
         .form-group textarea {
-            padding: 12px;
+            padding: 10px; /* Уменьшаем */
             border: 1px solid #ddd;
             border-radius: 5px;
             font-family: inherit;
-            font-size: 16px;
+            font-size: 14px; /* Уменьшаем */
+            width: 100%;
         }
 
         .form-group input:focus,
@@ -377,166 +462,171 @@
         }
 
         /* Красивое оформление для слотов времени */
-.time-slots {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-    gap: 12px;
-    margin-top: 15px;
-}
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); /* Уменьшаем для мобильных */
+            gap: 8px; /* Уменьшаем gap */
+            margin-top: 10px; /* Уменьшаем */
+        }
 
-.time-slot {
-    padding: 12px 8px;
-    background: linear-gradient(145deg, #ffffff, #f5f5f5);
-    border: 2px solid #e8e8e8;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    font-weight: 500;
-    color: #4a4a4a;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    position: relative;
-    overflow: hidden;
-}
+        .time-slot {
+            padding: 8px 4px; /* Уменьшаем */
+            background: linear-gradient(145deg, #ffffff, #f5f5f5);
+            border: 2px solid #e8e8e8;
+            border-radius: 8px; /* Уменьшаем */
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            font-weight: 500;
+            color: #4a4a4a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+            position: relative;
+            overflow: hidden;
+            font-size: 13px; /* Уменьшаем */
+        }
 
-.time-slot::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s ease;
-}
+        .time-slot::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
 
-.time-slot:hover::before {
-    left: 100%;
-}
+        .time-slot:hover::before {
+            left: 100%;
+        }
 
-.time-slot:hover {
-    background: linear-gradient(145deg, #f8e1e8, #f0d0d8);
-    border-color: #c99e9e;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(201, 158, 158, 0.2);
-    color: #4a4a4a;
-}
+        .time-slot:hover {
+            background: linear-gradient(145deg, #f8e1e8, #f0d0d8);
+            border-color: #c99e9e;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(201, 158, 158, 0.2);
+            color: #4a4a4a;
+        }
 
-.time-slot.selected {
-    background: linear-gradient(145deg, #c99e9e, #b88b8b);
-    border-color: #a77a7a;
-    color: white;
-    font-weight: 600;
-    box-shadow: 0 6px 15px rgba(201, 158, 158, 0.3);
-    transform: scale(1.02);
-}
+        .time-slot.selected {
+            background: linear-gradient(145deg, #c99e9e, #b88b8b);
+            border-color: #a77a7a;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 6px 15px rgba(201, 158, 158, 0.3);
+            transform: scale(1.02);
+        }
 
-.time-slot.selected:hover {
-    background: linear-gradient(145deg, #b88b8b, #a77a7a);
-    color: white;
-}
+        .time-slot.selected:hover {
+            background: linear-gradient(145deg, #b88b8b, #a77a7a);
+            color: white;
+        }
 
-.time-slot.booked {
-    background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
-    border-color: #d4d4d4;
-    color: #999;
-    cursor: not-allowed;
-    opacity: 0.7;
-    box-shadow: none;
-    transform: none;
-    position: relative;
-}
+        .time-slot.booked {
+            background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+            border-color: #d4d4d4;
+            color: #999;
+            cursor: not-allowed;
+            opacity: 0.7;
+            box-shadow: none;
+            transform: none;
+            position: relative;
+        }
 
-.time-slot.booked::after {
-    content: '✕';
-    position: absolute;
-    top: 2px;
-    right: 5px;
-    font-size: 12px;
-    color: #ff8080;
-    opacity: 0.7;
-}
+        .time-slot.booked::after {
+            content: '✕';
+            position: absolute;
+            top: 2px;
+            right: 5px;
+            font-size: 10px; /* Уменьшаем */
+            color: #ff8080;
+            opacity: 0.7;
+        }
 
-.time-slot.booked:hover {
-    background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
-    border-color: #d4d4d4;
-    color: #999;
-    transform: none;
-    box-shadow: none;
-}
+        .time-slot.booked:hover {
+            background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+            border-color: #d4d4d4;
+            color: #999;
+            transform: none;
+            box-shadow: none;
+        }
 
-.time-slot.booked:hover::before {
-    display: none;
-}
+        .time-slot.booked:hover::before {
+            display: none;
+        }
 
-/* Анимация появления слотов */
-@keyframes slotAppear {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
+        /* Анимация появления слотов */
+        @keyframes slotAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-.time-slot {
-    animation: slotAppear 0.3s ease forwards;
-}
+        .time-slot {
+            animation: slotAppear 0.3s ease forwards;
+        }
 
-/* Стили для сообщений (нет времени и т.д.) */
-.time-slot[style*="grid-column: 1/-1"] {
-    background: linear-gradient(145deg, #f8f8f8, #f0f0f0);
-    border: 2px dashed #c99e9e;
-    color: #c99e9e;
-    font-weight: 500;
-    cursor: default;
-    pointer-events: none;
-    grid-column: 1/-1 !important;
-    padding: 15px;
-}
+        /* Стили для сообщений (нет времени и т.д.) */
+        .time-slot.message-slot {
+            background: linear-gradient(145deg, #f8f8f8, #f0f0f0);
+            border: 2px dashed #c99e9e;
+            color: #c99e9e;
+            font-weight: 500;
+            cursor: default;
+            pointer-events: none;
+            grid-column: 1/-1 !important;
+            padding: 12px;
+            font-size: 14px;
+        }
 
         .contacts {
-            padding: 80px 0;
+            padding: 60px 0; /* Уменьшаем */
             background-color: var(--primary);
         }
 
         .contacts-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 50px;
+            gap: 30px; /* Уменьшаем gap */
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px; /* Уменьшаем gap */
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            gap: 15px;
+            align-items: flex-start; /* Выравниваем по верхнему краю */
+            gap: 12px; /* Уменьшаем gap */
         }
 
         .contact-icon {
-            font-size: 24px;
+            font-size: 20px; /* Уменьшаем */
+            min-width: 30px; /* Фиксированная ширина */
         }
 
         .contact-text {
             color: var(--text-dark);
+            font-size: 14px; /* Уменьшаем */
+            line-height: 1.4;
         }
 
         .social-links {
             display: flex;
-            gap: 15px;
-            margin-top: 20px;
+            gap: 12px; /* Уменьшаем gap */
+            margin-top: 15px; /* Уменьшаем */
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
+            width: 36px; /* Уменьшаем */
+            height: 36px; /* Уменьшаем */
             background-color: var(--gold);
             border-radius: 50%;
             display: flex;
@@ -553,7 +643,7 @@
 
         .map-container {
             width: 100%;
-            height: 300px;
+            height: 250px; /* Уменьшаем высоту */
             border-radius: 10px;
             overflow: hidden;
         }
@@ -567,24 +657,133 @@
         footer {
             background-color: #333;
             color: var(--white);
-            padding: 30px 0;
+            padding: 20px 0; /* Уменьшаем */
             text-align: center;
         }
 
         .footer-content p {
             margin: 5px 0;
             color: #aaa;
+            font-size: 13px; /* Уменьшаем */
+        }
+
+        /* Контейнер для круглых кнопок */
+        .round-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-start; /* Выравниваем по левому краю */
+            margin: 15px 0;
+        }
+
+        /* Стиль круглой кнопки */
+        .round-btn {
+            width: 50px; /* Уменьшаем */
+            height: 50px; /* Уменьшаем */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .round-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .round-btn:hover::before {
+            left: 100%;
+        }
+
+        .round-btn:hover {
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+        }
+
+        .round-icon {
+            width: 28px; /* Уменьшаем */
+            height: 28px; /* Уменьшаем */
+            object-fit: contain;
+        }
+
+        .telegram-round {
+            background: linear-gradient(145deg, #0088cc, #006699);
+        }
+
+        .vk-round {
+            background: linear-gradient(145deg, #4a76a8, #2f4f73);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 15px; /* Уменьшаем */
+            right: 15px; /* Уменьшаем */
+            left: 15px; /* Добавляем для мобильных */
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 12px 20px; /* Уменьшаем */
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateY(100px); /* Меняем направление */
+            transition: transform 0.3s;
+            z-index: 3000;
+            max-width: 90%; /* Ограничиваем ширину */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .notification.show {
+            transform: translateY(0);
+        }
+
+        /* Медиа-запросы для мобильных устройств */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+            
+            .hero p {
+                font-size: 16px;
+            }
         }
 
         @media (max-width: 768px) {
             .header-content {
-                flex-wrap: wrap;
+                padding: 10px 0;
+            }
+
+            .logo {
+                font-size: 18px;
+            }
+
+            .header-phone {
+                font-size: 12px;
+                margin-right: 10px;
             }
 
             nav {
                 display: none;
                 width: 100%;
                 order: 3;
+                background-color: var(--white);
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+                z-index: 999;
+                max-height: 80vh;
+                overflow-y: auto;
             }
 
             nav.active {
@@ -594,222 +793,276 @@
             nav ul {
                 flex-direction: column;
                 align-items: center;
-                padding: 20px 0;
+                padding: 15px 0;
+                gap: 15px;
+            }
+
+            nav ul li {
+                width: 100%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 8px 15px;
+                font-size: 16px;
             }
 
             .mobile-menu-btn {
                 display: block;
+                font-size: 22px;
+            }
+
+            .hero {
+                margin-top: 56px; /* Уменьшаем для мобильных */
+                padding: 30px 0;
             }
 
             .hero h1 {
-                font-size: 32px;
+                font-size: 28px;
             }
 
             .hero p {
-                font-size: 16px;
+                font-size: 14px;
             }
 
             .hero-buttons {
                 flex-direction: column;
+                align-items: center;
+                gap: 10px;
             }
 
-            .about-content,
-            .contacts-content {
+            .hero-buttons .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .about-content {
                 grid-template-columns: 1fr;
+                gap: 20px;
             }
 
             .about-image {
                 order: -1;
             }
 
+            .about-text h2 {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .about-text p {
+                font-size: 14px;
+                text-align: justify;
+            }
+
+            .about-stats {
+                justify-content: space-around;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+
+            .stat-label {
+                font-size: 12px;
+            }
+
+            .section-title {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr; /* Одна колонка на мобильных */
+                gap: 15px;
+            }
+
+            .service-card {
+                padding: 15px;
+            }
+
+            .service-card h3 {
+                font-size: 16px;
+            }
+
+            .service-price {
+                font-size: 18px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: repeat(2, 1fr); /* Две колонки на мобильных */
+                gap: 10px;
+            }
+
             .booking-container {
-                padding: 20px;
+                padding: 20px 15px;
+            }
+
+            .booking-container .section-title {
+                font-size: 22px;
+            }
+
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                font-size: 16px; /* Увеличиваем для удобства на мобильных */
+                padding: 12px;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr); /* Фиксированное количество колонок */
+                gap: 6px;
+            }
+
+            .time-slot {
+                padding: 8px 2px;
+                font-size: 12px;
+            }
+
+            .contacts-content {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .contact-info {
+                order: 1;
+            }
+
+            .map-container {
+                height: 220px;
+                order: 0;
+            }
+
+            .contact-item {
+                align-items: center;
+            }
+
+            .contact-text {
+                font-size: 13px;
+            }
+
+            .round-buttons {
+                justify-content: center;
+            }
+
+            .round-btn {
+                width: 45px;
+                height: 45px;
+            }
+
+            .round-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                max-height: 95%;
+            }
+
+            .close {
+                top: 10px;
+                right: 20px;
+                font-size: 30px;
             }
         }
 
-        .notification {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: var(--gold);
-            color: var(--white);
-            padding: 15px 25px;
-            border-radius: 5px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            transform: translateX(400px);
-            transition: transform 0.3s;
-            z-index: 3000;
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 12px;
+            }
+
+            .hero h1 {
+                font-size: 24px;
+            }
+
+            .hero p {
+                font-size: 13px;
+            }
+
+            .hero-buttons .btn {
+                max-width: 200px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+
+            .about-stats {
+                gap: 10px;
+            }
+
+            .stat-item {
+                min-width: 70px;
+            }
+
+            .stat-number {
+                font-size: 20px;
+            }
+
+            .stat-label {
+                font-size: 11px;
+            }
+
+            .section-title {
+                font-size: 22px;
+                margin-bottom: 20px;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr; /* Одна колонка на очень маленьких */
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(2, 1fr); /* Две колонки */
+            }
+
+            .contact-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+
+            .contact-icon {
+                font-size: 24px;
+            }
+
+            .booking-container {
+                padding: 15px 12px;
+            }
+
+            .booking-form .btn {
+                padding: 12px 20px;
+                font-size: 16px;
+            }
+
+            .footer-content p {
+                font-size: 12px;
+            }
         }
 
-        .notification.show {
-            transform: translateX(0);
+        /* Дополнительные исправления для iPhone и маленьких экранов */
+        @media (max-width: 375px) {
+            .hero h1 {
+                font-size: 22px;
+            }
+
+            .hero p {
+                font-size: 12px;
+            }
+
+            .about-text p {
+                font-size: 13px;
+            }
+
+            .time-slots {
+                grid-template-columns: 1fr; /* Одна колонка */
+            }
+
+            .time-slot {
+                padding: 10px;
+                font-size: 14px;
+            }
         }
-/* Базовый стиль для всех кнопок с бегущим бликом */
-.btn {
-    display: inline-block;
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-/* Эффект бегущего блика для всех кнопок */
-.btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.4),
-        transparent
-    );
-    transition: left 0.6s ease;
-    z-index: -1;
-}
-
-.btn:hover::before {
-    left: 100%;
-}
-
-/* Специфичные стили для btn-primary */
-.btn-primary {
-    background-color: var(--gold);
-    color: var(--white);
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
-}
-
-.btn-primary:hover {
-    background-color: #b8960c;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
-}
-
-/* Специфичные стили для btn-outline */
-.btn-outline {
-    background-color: transparent;
-    border: 2px solid var(--gold);
-    color: var(--gold);
-}
-
-.btn-outline:hover {
-    background-color: var(--gold);
-    color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
-}
-
-/* Для кнопок в карточках услуг */
-.service-card .btn {
-    margin-top: 15px;
-    width: 100%;
-}
-
-/* Для кнопки отправки формы */
-.booking-form .btn {
-    width: 100%;
-    font-size: 18px;
-    padding: 15px 30px;
-}
-
-/* Для социальных ссылок тоже добавим блик */
-.social-link {
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-}
-
-.social-link::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.6),
-        transparent
-    );
-    transition: left 0.5s ease;
-    z-index: -1;
-}
-
-.social-link:hover::before {
-    left: 100%;
-}
-
-.social-link:hover {
-    transform: translateY(-3px) scale(1.1);
-}
-
-/* Контейнер для круглых кнопок */
-.round-buttons {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-/* Стиль круглой кнопки */
-.round-btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-.round-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-    transition: left 0.5s ease;
-}
-
-.round-btn:hover::before {
-    left: 100%;
-}
-
-.round-btn:hover {
-    transform: scale(1.1) translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
-}
-
-.round-icon {
-    width: 35px;
-    height: 35px;
-    object-fit: contain;
-}
-
-.telegram-round {
-    background: linear-gradient(145deg, #0088cc, #006699);
-}
-
-.vk-round {
-    background: linear-gradient(145deg, #4a76a8, #2f4f73);
-}
     </style>
 </head>
 <body>
@@ -930,7 +1183,7 @@
                 <img src="images/price/price5.jpg" alt="Прайс-лист 5" style="object-fit: contain; background: #fff;">
             </div>
         </div>
-        <p style="text-align: center; margin-top: 20px; color: var(--text-light);">Нажмите на фото для увеличения</p>
+        <p style="text-align: center; margin-top: 20px; color: var(--text-light); font-size: 14px;">Нажмите на фото для увеличения</p>
     </div>
 </section>
 
@@ -1341,6 +1594,9 @@ function generateTimeSlots() {
             setTimeout(() => {
                 select.style.borderColor = '#ddd';
             }, 1000);
+            
+            // Прокручиваем к форме
+            document.getElementById('booking').scrollIntoView({behavior: 'smooth'});
         }
     }
 
@@ -1366,6 +1622,13 @@ function generateTimeSlots() {
         const nav = document.getElementById('mainNav');
         if (nav) {
             nav.classList.toggle('active');
+            
+            // Блокируем прокрутку body при открытом меню
+            if (nav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = '';
+            }
         }
     }
 
@@ -1432,7 +1695,7 @@ function generateTimeSlots() {
         // Если нет ни одного фото, показываем сообщение
         setTimeout(() => {
             if (loadedCount === 0) {
-                portfolioGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 40px;">Добавьте фото в папку images/portfolio/</p>';
+                portfolioGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 20px; color: var(--text-light);">Добавьте фото в папку images/portfolio/</p>';
             }
         }, 1000);
     }
@@ -1452,18 +1715,18 @@ function generateTimeSlots() {
                 card.className = 'service-card';
                 
                 // Формируем описание с дополнительной информацией, если есть
-                let description = service.name;
+                let description = '';
                 if (service.note) {
-                    description = `<small>${service.note}</small>`;
+                    description = `<p>${service.note}</p>`;
                 }
                 
                 card.innerHTML = `
                     <div class="service-icon">${service.icon}</div>
                     <h3>${service.name}</h3>
-                    <p>${service.note ? service.note : ''}</p>
+                    ${description}
                     <div class="service-price">${service.price === 0 ? 'Бесплатно' : service.price + ' ₽'}</div>
                     <div class="service-duration">⏱ ${service.duration}</div>
-                    <button class="btn btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); selectService(${service.id})">Записаться</button>
+                    <button class="btn btn-primary" onclick="selectService(${service.id})">Записаться</button>
                 `;
                 servicesGrid.appendChild(card);
 
@@ -1528,6 +1791,12 @@ function generateTimeSlots() {
                     return;
                 }
 
+                // Проверяем, что выбранный слот не забронирован
+                if (selectedTime.classList.contains('booked')) {
+                    showNotification('Это время уже занято, выберите другое');
+                    return;
+                }
+
                 // Собираем данные формы
                 const formData = {
                     service: document.getElementById('service').options[document.getElementById('service').selectedIndex].text,
@@ -1565,8 +1834,21 @@ function generateTimeSlots() {
                 const nav = document.getElementById('mainNav');
                 if (nav && nav.classList.contains('active')) {
                     nav.classList.remove('active');
+                    document.body.style.overflow = '';
                 }
             });
+        });
+
+        // Обработка resize окна
+        window.addEventListener('resize', function() {
+            // Если ширина больше 768px и меню открыто, закрываем его
+            if (window.innerWidth > 768) {
+                const nav = document.getElementById('mainNav');
+                if (nav && nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
+            }
         });
     });
 </script>
