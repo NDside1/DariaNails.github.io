@@ -1,0 +1,1574 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Маникюрный кабинет Дарьи Анцифировой</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Все стили остаются БЕЗ ИЗМЕНЕНИЙ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        :root {
+            --primary: #f8e1e8;
+            --accent: #c99e9e;
+            --text-dark: #4a4a4a;
+            --text-light: #7a7a7a;
+            --white: #ffffff;
+            --gold: #d4af37;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: #b8960c;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: var(--white);
+        }
+
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .logo span {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .header-phone {
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .header-phone:hover {
+            color: var(--gold);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('images/hero-bg.jpg') center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 70px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .about {
+            padding: 80px 0;
+            background-color: var(--primary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-text h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: var(--text-dark);
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--text-light);
+        }
+
+        .about-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+        }
+
+        .services {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            color: var(--text-dark);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+            border: 1px solid #f0f0f0;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+
+        .service-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            margin: 15px 0;
+        }
+
+        .service-duration {
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+
+        .portfolio {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            padding-top: 50px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9);
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 80%;
+            max-height: 80%;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .booking {
+            padding: 80px 0;
+        }
+
+        .booking-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 40px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        /* Красивое оформление для слотов времени */
+.time-slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.time-slot {
+    padding: 12px 8px;
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    border: 2px solid #e8e8e8;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    font-weight: 500;
+    color: #4a4a4a;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+}
+
+.time-slot::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.time-slot:hover::before {
+    left: 100%;
+}
+
+.time-slot:hover {
+    background: linear-gradient(145deg, #f8e1e8, #f0d0d8);
+    border-color: #c99e9e;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(201, 158, 158, 0.2);
+    color: #4a4a4a;
+}
+
+.time-slot.selected {
+    background: linear-gradient(145deg, #c99e9e, #b88b8b);
+    border-color: #a77a7a;
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 6px 15px rgba(201, 158, 158, 0.3);
+    transform: scale(1.02);
+}
+
+.time-slot.selected:hover {
+    background: linear-gradient(145deg, #b88b8b, #a77a7a);
+    color: white;
+}
+
+.time-slot.booked {
+    background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+    border-color: #d4d4d4;
+    color: #999;
+    cursor: not-allowed;
+    opacity: 0.7;
+    box-shadow: none;
+    transform: none;
+    position: relative;
+}
+
+.time-slot.booked::after {
+    content: '✕';
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    font-size: 12px;
+    color: #ff8080;
+    opacity: 0.7;
+}
+
+.time-slot.booked:hover {
+    background: linear-gradient(145deg, #f0f0f0, #e5e5e5);
+    border-color: #d4d4d4;
+    color: #999;
+    transform: none;
+    box-shadow: none;
+}
+
+.time-slot.booked:hover::before {
+    display: none;
+}
+
+/* Анимация появления слотов */
+@keyframes slotAppear {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.time-slot {
+    animation: slotAppear 0.3s ease forwards;
+}
+
+/* Стили для сообщений (нет времени и т.д.) */
+.time-slot[style*="grid-column: 1/-1"] {
+    background: linear-gradient(145deg, #f8f8f8, #f0f0f0);
+    border: 2px dashed #c99e9e;
+    color: #c99e9e;
+    font-weight: 500;
+    cursor: default;
+    pointer-events: none;
+    grid-column: 1/-1 !important;
+    padding: 15px;
+}
+
+        .contacts {
+            padding: 80px 0;
+            background-color: var(--primary);
+        }
+
+        .contacts-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            font-size: 24px;
+        }
+
+        .contact-text {
+            color: var(--text-dark);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background-color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-decoration: none;
+            transition: transform 0.3s;
+        }
+
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+
+        .map-container {
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            background-color: #333;
+            color: var(--white);
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .footer-content p {
+            margin: 5px 0;
+            color: #aaa;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-wrap: wrap;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+                order: 3;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .about-content,
+            .contacts-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-image {
+                order: -1;
+            }
+
+            .booking-container {
+                padding: 20px;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--gold);
+            color: var(--white);
+            padding: 15px 25px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 3000;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+/* Базовый стиль для всех кнопок с бегущим бликом */
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* Эффект бегущего блика для всех кнопок */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    transition: left 0.6s ease;
+    z-index: -1;
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+/* Специфичные стили для btn-primary */
+.btn-primary {
+    background-color: var(--gold);
+    color: var(--white);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+.btn-primary:hover {
+    background-color: #b8960c;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+}
+
+/* Специфичные стили для btn-outline */
+.btn-outline {
+    background-color: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+}
+
+.btn-outline:hover {
+    background-color: var(--gold);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3);
+}
+
+/* Для кнопок в карточках услуг */
+.service-card .btn {
+    margin-top: 15px;
+    width: 100%;
+}
+
+/* Для кнопки отправки формы */
+.booking-form .btn {
+    width: 100%;
+    font-size: 18px;
+    padding: 15px 30px;
+}
+
+/* Для социальных ссылок тоже добавим блик */
+.social-link {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.6),
+        transparent
+    );
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.social-link:hover::before {
+    left: 100%;
+}
+
+.social-link:hover {
+    transform: translateY(-3px) scale(1.1);
+}
+
+/* Контейнер для круглых кнопок */
+.round-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin: 20px 0;
+}
+
+/* Стиль круглой кнопки */
+.round-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.round-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: left 0.5s ease;
+}
+
+.round-btn:hover::before {
+    left: 100%;
+}
+
+.round-btn:hover {
+    transform: scale(1.1) translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+}
+
+.round-icon {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.telegram-round {
+    background: linear-gradient(145deg, #0088cc, #006699);
+}
+
+.vk-round {
+    background: linear-gradient(145deg, #4a76a8, #2f4f73);
+}
+    </style>
+</head>
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">Daria<span>Nails</span></div>
+                <nav id="mainNav">
+                    <ul>
+                        <li><a href="#home">Главная</a></li>
+                        <li><a href="#about">Обо мне</a></li>
+                        <li><a href="#services">Услуги</a></li>
+                        <li><a href="#portfolio">Портфолио</a></li>
+                        <li><a href="#price">Прайс-лист</a></li>
+                        <li><a href="#booking">Запись</a></li>
+                        <li><a href="#contacts">Контакты</a></li>
+                    </ul>
+                </nav>
+                <a href="tel:+79991234567" class="header-phone">+7 (908) 021-30-71</a>
+                <div class="mobile-menu-btn" onclick="toggleMenu()">☰</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Главный экран -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Идеальный маникюр в вашем городе</h1>
+            <p>Студия Дарьи Анцифировой. Качественные материалы, индивидуальный подход и безупречный результат</p>
+            <div class="hero-buttons">
+                <a href="#booking" class="btn btn-primary">Записаться онлайн</a>
+                <a href="#portfolio" class="btn btn-outline">Портфолио</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Обо мне -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="images/about.jpg" alt="Дарья Анцифирова" id="aboutImage">
+                </div>
+                <div class="about-text">
+                    <h2>Обо мне</h2>
+                    <p>Приветствую Вас в мире совершенства и изысканности</p>
+                    <p>Меня зовут Дарья, я мастер маникюра с большим стажем. Расскажу кратко, что я предоставляю</p>
+                    <p>⭐️ Индивидуальное моделирование ногтей
+Каждой клиентке уделяется особое внимание и гарантируется высокое качество исполнения.</p>
+                    <p>⏳ Время процедуры: от 1 часа до 2,5 часов
+Наслаждайтесь процессом ухода за собой в атмосфере комфорта и релаксации.</p>
+                    <p>🔥 Безопасность превыше всего
+Все используемые материалы одноразовые, а инструменты проходят строгую обработку согласно стандартам СанПин.</p>
+                    <p>🎨 Богатая палитра цветов
+Ваш выбор определяет мою работу — любые оттенки и цвета по Вашему запросу!</p>
+                    <p>✨ Искусство нейл-арта и 3D-дизайн
+Владею всеми современными техниками декорирования ногтей, создающими настоящий шедевр на Ваших руках.</p>
+                    <p>Приглашаю окунуться в мир красоты и гармонии, ожидая каждую гостью с нетерпением!</p>
+                    <div class="about-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">6+</div>
+                            <div class="stat-label">Лет опыта</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">1100+</div>
+                            <div class="stat-label">Клиентов</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">9+</div>
+                            <div class="stat-label">Сертификатов</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Услуги -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Мои услуги</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Услуги будут добавлены через JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Портфолио</h2>
+            <div class="portfolio-grid" id="portfolioGrid">
+                <!-- Фото будут загружены из папки images/portfolio/ -->
+            </div>
+        </div>
+    </section>
+
+   <!-- Прайс-лист (5 фото) -->
+<section id="price" class="services" style="background-color: #f9f9f9;">
+    <div class="container">
+        <h2 class="section-title">Прайс-лист</h2>
+        <div class="portfolio-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
+            <!-- 5 фото прайс-листов -->
+            <div class="portfolio-item" onclick="openModal('images/price/price1.jpg')">
+                <img src="images/price/price1.jpg" alt="Прайс-лист 1" style="object-fit: contain; background: #fff;">
+            </div>
+            <div class="portfolio-item" onclick="openModal('images/price/price2.jpg')">
+                <img src="images/price/price2.jpg" alt="Прайс-лист 2" style="object-fit: contain; background: #fff;">
+            </div>
+            <div class="portfolio-item" onclick="openModal('images/price/price3.jpg')">
+                <img src="images/price/price3.jpg" alt="Прайс-лист 3" style="object-fit: contain; background: #fff;">
+            </div>
+            <div class="portfolio-item" onclick="openModal('images/price/price4.jpg')">
+                <img src="images/price/price4.jpg" alt="Прайс-лист 4" style="object-fit: contain; background: #fff;">
+            </div>
+            <div class="portfolio-item" onclick="openModal('images/price/price5.jpg')">
+                <img src="images/price/price5.jpg" alt="Прайс-лист 5" style="object-fit: contain; background: #fff;">
+            </div>
+        </div>
+        <p style="text-align: center; margin-top: 20px; color: var(--text-light);">Нажмите на фото для увеличения</p>
+    </div>
+</section>
+
+    <!-- Модальное окно для портфолио и прайс-листа -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <!-- Онлайн-запись -->
+    <section id="booking" class="booking">
+        <div class="container">
+            <div class="booking-container">
+                <h2 class="section-title">Онлайн-запись</h2>
+                <form id="bookingForm" class="booking-form">
+                    <div class="form-group">
+                        <label for="service">Выберите услугу</label>
+                        <select id="service" name="service" required>
+                            <option value="">-- Выберите услугу --</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="date">Выберите дату</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Выберите время</label>
+                        <div class="time-slots" id="timeSlots">
+                            <!-- Слоты времени будут добавлены через JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Ваш телефон</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="comment">Комментарий (необязательно)</label>
+                        <textarea id="comment" name="comment" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Записаться</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts" class="contacts">
+        <div class="container">
+            <div class="contacts-content">
+                <div class="contact-info">
+                    <h2 class="section-title">Контакты</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div class="contact-text">«Студия красоты», находится по адресу: мк-рн Покровка, Чернышевского 114</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div class="contact-text">+7 (908) 021-30-71</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div class="contact-text">Great06@yandex.ru</div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">🕒</div>
+                        <div class="contact-text">Вт-Сб: 10:00 - 20:00, Вс-Пн: выходной</div>
+                    </div>
+
+                   <!-- Круглые кнопки с иконками -->
+<div class="round-buttons">
+    <!-- Telegram -->
+    <a href="https://t.me/Daria_Lucifer" target="_blank" class="round-btn telegram-round" title="Telegram">
+        <img src="images/icons/telegram-icon.png" alt="Telegram" class="round-icon">
+    </a>
+    
+    <!-- ВКонтакте -->
+    <a href="https://vk.com/lucifer_6669" target="_blank" class="round-btn vk-round" title="ВКонтакте">
+        <img src="images/icons/vk-icon.png" alt="VK" class="round-icon">
+    </a>
+</div>
+                </div>
+
+                <div class="map-container">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2228.805809166306!2d92.86920469895543!3d56.039351104068665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5cd7aef42967a10d%3A0x8e8c6a0de12231cb!2z0YPQuy4g0KfQtdGA0L3Ri9GI0LXQstGB0LrQvtCz0L4sIDExNCwg0JrRgNCw0YHQvdC-0Y_RgNGB0LosINCa0YDQsNGB0L3QvtGP0YDRgdC60LjQuSDQutGA0LDQuSwgNjYwMDQz!5e0!3m2!1sru!2sru!4v1773568835099!5m2!1sru!2sru" style="border:0; width:100%; height:100%;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2026 Daria Nails. Все права защищены.</p>
+                <p>Сайт-визитка мастера маникюра</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Уведомление -->
+    <div id="notification" class="notification"></div>
+
+    <script>
+    // Данные услуг НА ОСНОВЕ ПРАЙС-ЛИСТА
+    const services = [
+        {
+            id: 1,
+            name: 'Гигиенический маникюр',
+            price: 1200,
+            duration: '1 час',
+            icon: '💅',
+            category: 'manicure'
+        },
+        {
+            id: 2,
+            name: 'Покрытие + легкая коррекция',
+            price: 1900,
+            duration: '1.5 часа',
+            icon: '✨',
+            category: 'manicure'
+        },
+        {
+            id: 3,
+            name: 'Покрытие + сложная коррекция',
+            price: 2100,
+            duration: '1.5-2 часа',
+            icon: '✨',
+            category: 'manicure'
+        },
+        {
+            id: 4,
+            name: 'Снятие покрытия (без покрытия)',
+            price: 500,
+            duration: '30 мин',
+            icon: '🔧',
+            category: 'manicure'
+        },
+        {
+            id: 5,
+            name: 'Наращивание Little (до 2 ногтей)',
+            price: 2200,
+            duration: '2 часа',
+            icon: '📏',
+            category: 'extensions'
+        },
+        {
+            id: 6,
+            name: 'Наращивание Medium (до 4 ногтей)',
+            price: 2400,
+            duration: '2-2.5 часа',
+            icon: '📐',
+            category: 'extensions'
+        },
+        {
+            id: 7,
+            name: 'Наращивание Extreme (от 5 ногтей)',
+            price: 2700,
+            duration: '2.5 часа',
+            icon: '🌟',
+            category: 'extensions'
+        },
+        {
+            id: 8,
+            name: 'Коррекция наращивания Little',
+            price: 2100,
+            duration: '1.5-2 часа',
+            icon: '🔄',
+            category: 'correction'
+        },
+        {
+            id: 9,
+            name: 'Коррекция наращивания Medium',
+            price: 2200,
+            duration: '2 часа',
+            icon: '🔄',
+            category: 'correction'
+        },
+        {
+            id: 10,
+            name: 'Коррекция наращивания Extreme',
+            price: 2500,
+            duration: '2-2.5 часа',
+            icon: '🔄',
+            category: 'correction'
+        },
+        {
+            id: 11,
+            name: 'Ремонт одного ногтя',
+            price: 100,
+            duration: '15-20 мин',
+            icon: '🔨',
+            category: 'repair'
+        },
+        {
+            id: 12,
+            name: 'Наращивание 1 ногтя',
+            price: 200,
+            duration: '20-30 мин',
+            icon: '📌',
+            category: 'repair'
+        },
+        {
+            id: 13,
+            name: 'Френч выкладной Little',
+            price: 2500,
+            duration: '2-2.5 часа',
+            icon: '👑',
+            category: 'design'
+        },
+        {
+            id: 14,
+            name: 'Френч выкладной Medium',
+            price: 3500,
+            duration: '2.5 часа',
+            icon: '👑',
+            category: 'design'
+        },
+        {
+            id: 15,
+            name: 'Френч выкладной Hard',
+            price: 5000,
+            duration: '3 часа',
+            icon: '👑',
+            category: 'design'
+        },
+        {
+            id: 16,
+            name: 'Кошачьи когти Little',
+            price: 3000,
+            duration: '2-2.5 часа',
+            icon: '🐱',
+            category: 'design'
+        },
+        {
+            id: 17,
+            name: 'Кошачьи когти Medium',
+            price: 4000,
+            duration: '2.5-3 часа',
+            icon: '🐱',
+            category: 'design'
+        },
+        {
+            id: 18,
+            name: 'Кошачьи когти Hard',
+            price: 5000,
+            duration: '3 часа',
+            icon: '🐱',
+            category: 'design'
+        },
+        {
+            id: 19,
+            name: 'Дизайн Френч',
+            price: 400,
+            duration: '20 мин',
+            icon: '🎨',
+            category: 'design'
+        },
+        {
+            id: 20,
+            name: 'Легкий дизайн (1 ноготь)',
+            price: 50,
+            duration: '10 мин',
+            icon: '🖌️',
+            category: 'design',
+            note: 'слайдеры, стемпинг, мелкий рисунок, стразы, поталь'
+        },
+        {
+            id: 21,
+            name: 'Сложный дизайн (1 ноготь)',
+            price: 100,
+            duration: '20-30 мин',
+            icon: '🎭',
+            category: 'design',
+            note: '2+ рисунка, градиент, объемные фигурки'
+        },
+        {
+            id: 22,
+            name: 'Дизайн до 2-х ногтей',
+            price: 0,
+            duration: 'бесплатно',
+            icon: '🎁',
+            category: 'design'
+        }
+    ];
+
+    // Временные слоты
+    const timeSlots = [
+        '10:00', '12:30', '15:00', '17:30', '20:00'
+    ];
+
+    // Забронированные слоты (для демонстрации)
+    const bookedSlots = {
+        '2026-01-15': ['10:00', '14:00', '18:00'],
+        '2026-01-16': ['11:00', '15:00']
+    };
+
+    // Функция генерации слотов времени (с красивым оформлением)
+function generateTimeSlots() {
+    console.log('generateTimeSlots вызвана');
+    
+    const dateInput = document.getElementById('date');
+    if (!dateInput) {
+        console.log('dateInput не найден');
+        return;
+    }
+    
+    const selectedDate = dateInput.value;
+    console.log('Выбранная дата:', selectedDate);
+    
+    const timeSlotsContainer = document.getElementById('timeSlots');
+    if (!timeSlotsContainer) {
+        console.log('timeSlotsContainer не найден');
+        return;
+    }
+    
+    timeSlotsContainer.innerHTML = '';
+    
+    // Проверяем, есть ли выбранная дата
+    if (!selectedDate) {
+        const messageSlot = document.createElement('div');
+        messageSlot.className = 'time-slot message-slot';
+        messageSlot.textContent = '📅 Сначала выберите дату';
+        messageSlot.style.gridColumn = '1/-1';
+        messageSlot.style.cursor = 'default';
+        messageSlot.style.background = 'linear-gradient(145deg, #f8f8f8, #f0f0f0)';
+        messageSlot.style.border = '2px dashed #c99e9e';
+        messageSlot.style.color = '#c99e9e';
+        messageSlot.style.pointerEvents = 'none';
+        timeSlotsContainer.appendChild(messageSlot);
+        return;
+    }
+    
+    // Проверяем, есть ли слоты для этой даты
+    if (timeSlots.length === 0) {
+        const messageSlot = document.createElement('div');
+        messageSlot.className = 'time-slot message-slot';
+        messageSlot.textContent = '⏰ Нет доступного времени';
+        messageSlot.style.gridColumn = '1/-1';
+        messageSlot.style.cursor = 'default';
+        messageSlot.style.background = 'linear-gradient(145deg, #f8f8f8, #f0f0f0)';
+        messageSlot.style.border = '2px dashed #c99e9e';
+        messageSlot.style.color = '#c99e9e';
+        messageSlot.style.pointerEvents = 'none';
+        timeSlotsContainer.appendChild(messageSlot);
+        return;
+    }
+    
+    // Создаем слоты времени
+    timeSlots.forEach((time, index) => {
+        const slot = document.createElement('div');
+        slot.className = 'time-slot';
+        slot.textContent = time;
+        slot.setAttribute('data-time', time);
+        
+        // Добавляем задержку анимации для каждого слота
+        slot.style.animationDelay = `${index * 0.05}s`;
+        
+        // Проверяем, забронирован ли слот
+        if (bookedSlots[selectedDate] && bookedSlots[selectedDate].includes(time)) {
+            slot.classList.add('booked');
+            slot.title = 'Это время уже занято';
+            // Не добавляем обработчик клика для занятых слотов
+        } else {
+            // Добавляем обработчик клика для свободных слотов
+            slot.addEventListener('click', function(event) {
+                console.log('Клик по слоту:', time);
+                
+                // Убираем выделение у всех слотов
+                document.querySelectorAll('.time-slot').forEach(s => {
+                    s.classList.remove('selected');
+                });
+                
+                // Выделяем выбранный слот
+                this.classList.add('selected');
+                
+                console.log('Выбрано время:', time);
+            });
+        }
+        
+        timeSlotsContainer.appendChild(slot);
+    });
+    
+    console.log('Создано слотов:', timeSlotsContainer.children.length);
+}
+
+    // Функция для выбора услуги из карточки
+    function selectService(serviceId) {
+        const select = document.getElementById('service');
+        if (select) {
+            select.value = serviceId;
+            
+            // Подсвечиваем форму
+            select.style.borderColor = 'var(--gold)';
+            setTimeout(() => {
+                select.style.borderColor = '#ddd';
+            }, 1000);
+        }
+    }
+
+    // Функции для модального окна портфолио
+    function openModal(imgSrc) {
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+        if (modal && modalImg) {
+            modal.style.display = 'block';
+            modalImg.src = imgSrc;
+        }
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('imageModal');
+        if (modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Функция для мобильного меню
+    function toggleMenu() {
+        const nav = document.getElementById('mainNav');
+        if (nav) {
+            nav.classList.toggle('active');
+        }
+    }
+
+    // Закрытие модального окна по клику вне изображения
+    window.onclick = function(event) {
+        const modal = document.getElementById('imageModal');
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+
+    // Функция показа уведомлений
+    function showNotification(message) {
+        const notification = document.getElementById('notification');
+        if (notification) {
+            notification.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 5000);
+        }
+    }
+
+    // Функция для загрузки портфолио из папки
+    function loadPortfolioFromFolder() {
+        const portfolioGrid = document.getElementById('portfolioGrid');
+        if (!portfolioGrid) return;
+        
+        portfolioGrid.innerHTML = ''; // Очищаем сетку
+        
+        // Пытаемся загрузить фото из папки images/portfolio/
+        let loadedCount = 0;
+        
+        for (let i = 1; i <= 9; i++) {
+            const img = new Image();
+            img.src = `images/portfolio/${i}.jpg`;
+            
+            // Проверяем, существует ли файл
+            img.onload = function() {
+                const item = document.createElement('div');
+                item.className = 'portfolio-item';
+                item.onclick = function() { openModal(this.querySelector('img').src); };
+                item.innerHTML = `<img src="${this.src}" alt="Работа ${i}">`;
+                portfolioGrid.appendChild(item);
+                loadedCount++;
+            };
+            
+            img.onerror = function() {
+                // Если JPG не найден, пробуем PNG
+                const imgPng = new Image();
+                imgPng.src = `images/portfolio/${i}.png`;
+                imgPng.onload = function() {
+                    const item = document.createElement('div');
+                    item.className = 'portfolio-item';
+                    item.onclick = function() { openModal(this.querySelector('img').src); };
+                    item.innerHTML = `<img src="${this.src}" alt="Работа ${i}">`;
+                    portfolioGrid.appendChild(item);
+                    loadedCount++;
+                };
+            };
+        }
+        
+        // Если нет ни одного фото, показываем сообщение
+        setTimeout(() => {
+            if (loadedCount === 0) {
+                portfolioGrid.innerHTML = '<p style="text-align: center; grid-column: 1/-1; padding: 40px;">Добавьте фото в папку images/portfolio/</p>';
+            }
+        }, 1000);
+    }
+
+    // Инициализация страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM загружен'); // Для отладки
+        
+        // Загружаем услуги
+        const servicesGrid = document.getElementById('servicesGrid');
+        const serviceSelect = document.getElementById('service');
+
+        if (servicesGrid && serviceSelect) {
+            services.forEach(service => {
+                // Добавляем в сетку услуг
+                const card = document.createElement('div');
+                card.className = 'service-card';
+                
+                // Формируем описание с дополнительной информацией, если есть
+                let description = service.name;
+                if (service.note) {
+                    description = `<small>${service.note}</small>`;
+                }
+                
+                card.innerHTML = `
+                    <div class="service-icon">${service.icon}</div>
+                    <h3>${service.name}</h3>
+                    <p>${service.note ? service.note : ''}</p>
+                    <div class="service-price">${service.price === 0 ? 'Бесплатно' : service.price + ' ₽'}</div>
+                    <div class="service-duration">⏱ ${service.duration}</div>
+                    <button class="btn btn-primary" onclick="document.getElementById('booking').scrollIntoView({behavior: 'smooth'}); selectService(${service.id})">Записаться</button>
+                `;
+                servicesGrid.appendChild(card);
+
+                // Добавляем в выпадающий список формы
+                const option = document.createElement('option');
+                option.value = service.id;
+                option.textContent = `${service.name} - ${service.price === 0 ? 'Бесплатно' : service.price + '₽'} (${service.duration})`;
+                serviceSelect.appendChild(option);
+            });
+        }
+
+        // Загружаем портфолио
+        loadPortfolioFromFolder();
+        
+        // Настраиваем дату
+        const dateInput = document.getElementById('date');
+        if (dateInput) {
+            // Получаем сегодняшнюю дату
+            const today = new Date();
+            
+            // Форматируем сегодняшнюю дату
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            const todayFormatted = `${year}-${month}-${day}`;
+            
+            // Устанавливаем минимальную дату - сегодня
+            dateInput.min = todayFormatted;
+            
+            // Устанавливаем значение на завтра
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowYear = tomorrow.getFullYear();
+            const tomorrowMonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+            const tomorrowDay = String(tomorrow.getDate()).padStart(2, '0');
+            dateInput.value = `${tomorrowYear}-${tomorrowMonth}-${tomorrowDay}`;
+            
+            console.log('Установлена дата:', dateInput.value); // Для отладки
+
+            // Генерируем слоты времени
+            generateTimeSlots();
+
+            // Слушатель изменения даты
+            dateInput.addEventListener('change', function() {
+                console.log('Дата изменена:', this.value); // Для отладки
+                generateTimeSlots();
+            });
+        } else {
+            console.log('dateInput не найден при инициализации');
+        }
+
+        // Обработка отправки формы
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // Получаем выбранное время
+                const selectedTime = document.querySelector('.time-slot.selected');
+                if (!selectedTime) {
+                    showNotification('Пожалуйста, выберите время');
+                    return;
+                }
+
+                // Собираем данные формы
+                const formData = {
+                    service: document.getElementById('service').options[document.getElementById('service').selectedIndex].text,
+                    date: document.getElementById('date').value,
+                    time: selectedTime.textContent,
+                    name: document.getElementById('name').value,
+                    phone: document.getElementById('phone').value,
+                    comment: document.getElementById('comment').value
+                };
+
+                console.log('Данные для отправки:', formData);
+                
+                // Показываем уведомление об успешной записи
+                showNotification('Спасибо! Ваша заявка принята. Я свяжусь с вами в ближайшее время для подтверждения.');
+                
+                // Сбрасываем форму
+                this.reset();
+                
+                // Устанавливаем следующую дату
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                const tomorrowYear = tomorrow.getFullYear();
+                const tomorrowMonth = String(tomorrow.getMonth() + 1).padStart(2, '0');
+                const tomorrowDay = String(tomorrow.getDate()).padStart(2, '0');
+                document.getElementById('date').value = `${tomorrowYear}-${tomorrowMonth}-${tomorrowDay}`;
+                
+                // Генерируем слоты заново
+                generateTimeSlots();
+            });
+        }
+
+        // Закрытие мобильного меню при клике на ссылку
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                const nav = document.getElementById('mainNav');
+                if (nav && nav.classList.contains('active')) {
+                    nav.classList.remove('active');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
