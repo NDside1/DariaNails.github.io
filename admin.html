@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель | Daria Nails</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-analytics.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDBWvRhfvWJXWFNJ4moypYoesISvFH5qEA",
+            authDomain: "darianails-bb3e2.firebaseapp.com",
+            projectId: "darianails-bb3e2",
+            storageBucket: "darianails-bb3e2.firebasestorage.app",
+            messagingSenderId: "516559852588",
+            appId: "1:516559852588:web:f52c9c44d05fd53ec16d89",
+            measurementId: "G-91QG1FJ7BH"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const db = getFirestore(app);
+
+        window.db = db;
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f8e1e8 0%, #f5f5f5 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, #4a4a4a 0%, #333 100%);
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .admin-title h1 {
+            color: #d4af37;
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .admin-title p {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .admin-stats {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.1);
+            padding: 10px 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .stat-card .number {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d4af37;
+        }
+
+        .stat-card .label {
+            font-size: 12px;
+            color: #ccc;
+        }
+
+        .back-link {
+            color: #d4af37;
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 2px solid #d4af37;
+            border-radius: 25px;
+            transition: all 0.3s;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 14px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .back-link:hover {
+            background: #d4af37;
+            color: #333;
+        }
+
+        .filters {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 14px;
+            min-width: 150px;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #d4af37;
+        }
+
+        .btn-filter {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s;
+        }
+
+        .btn-filter:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: #6c757d;
+        }
+
+        .bookings-table-container {
+            background: white;
+            border-radius: 15px;
+            overflow-x: auto;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        .bookings-table th {
+            background: linear-gradient(135deg, #4a4a4a, #333);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .bookings-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .bookings-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .status-new {
+            background: #ffeaa7;
+            color: #d4af37;
+        }
+
+        .status-confirmed {
+            background: #d4edda;
+            color: #28a745;
+        }
+
+        .status-completed {
+            background: #cce5ff;
+            color: #0056b3;
+        }
+
+        .status-cancelled {
+            background: #f8d7da;
+            color: #dc3545;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .btn-edit {
+            color: #d4af37;
+        }
+
+        .btn-delete {
+            color: #dc3545;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 15px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .modal-content select,
+        .modal-content textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .btn-save {
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: white;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #d4af37, #b8960c);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 10px;
+            transform: translateX(400px);
+            transition: transform 0.3s;
+            z-index: 1001;
+        }
+
+        .notification.show {
+            transform: translateX(0);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .admin-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .filter-group input,
+            .filter-group select {
+                min-width: auto;
+            }
+            
+            .bookings-table th,
+            .bookings-table td {
+                padding: 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <div class="admin-title">
+                <h1>👑 Админ-панель | Daria Nails</h1>
+                <p>Управление записями клиентов</p>
+            </div>
+            <div class="admin-stats">
+                <div class="stat-card">
+                    <div class="number" id="totalCount">0</div>
+                    <div class="label">Всего записей</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number" id="newCount">0</div>
+                    <div class="label">Новые</div>
+                </div>
+            </div>
+            <a href="index.html" class="back-link">← На главную</a>
+        </div>
+
+        <div class="filters">
+            <div class="filter-group">
+                <label>Фильтр по статусу</label>
+                <select id="statusFilter">
+                    <option value="all">Все записи</option>
+                    <option value="new">🟡 Новые</option>
+                    <option value="confirmed">✅ Подтвержденные</option>
+                    <option value="completed">⭐ Выполненные</option>
+                    <option value="cancelled">❌ Отмененные</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Дата от</label>
+                <input type="date" id="dateFrom">
+            </div>
+            <div class="filter-group">
+                <label>Дата до</label>
+                <input type="date" id="dateTo">
+            </div>
+            <div class="filter-group">
+                <label>Поиск по имени/телефону</label>
+                <input type="text" id="searchInput" placeholder="Имя или телефон...">
+            </div>
+            <button class="btn-filter" id="applyFilters">🔍 Применить</button>
+            <button class="btn-filter btn-reset" id="resetFilters">🔄 Сбросить</button>
+        </div>
+
+        <div class="bookings-table-container">
+            <table class="bookings-table">
+                <thead>
+                    <tr>
+                        <th>Дата и время</th>
+                        <th>Клиент</th>
+                        <th>Услуга</th>
+                        <th>Стоимость</th>
+                        <th>Комментарий</th>
+                        <th>Статус</th>
+                        <th>Действия</th>
+                    </tr>
+                </thead>
+                <tbody id="bookingsTableBody">
+                    <tr><td colspan="7" class="loading">Загрузка записей...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeEditModal()">&times;</span>
+            <h3>✏️ Редактирование записи</h3>
+            <div class="form-group">
+                <label>Статус записи</label>
+                <select id="editStatus">
+                    <option value="new">🟡 Новая</option>
+                    <option value="confirmed">✅ Подтвержденная</option>
+                    <option value="completed">⭐ Выполненная</option>
+                    <option value="cancelled">❌ Отмененная</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Комментарий мастера</label>
+                <textarea id="editComment" rows="3" placeholder="Добавьте заметку..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-save" onclick="saveBookingChanges()">💾 Сохранить</button>
+                <button class="btn-cancel" onclick="closeEditModal()">Отмена</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+
+    <script type="module">
+        import { getFirestore, collection, getDocs, doc, updateDoc, deleteDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+        
+        const db = window.db;
+        let allBookings = [];
+        let currentEditId = null;
+        
+        function showNotification(message, isError = false) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.background = isError ? 'linear-gradient(135deg, #dc3545, #c82333)' : 'linear-gradient(135deg, #d4af37, #b8960c)';
+            notification.classList.add('show');
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        function getStatusText(status) {
+            const statuses = {
+                'new': '🟡 Новая',
+                'confirmed': '✅ Подтвержденная',
+                'completed': '⭐ Выполненная',
+                'cancelled': '❌ Отмененная'
+            };
+            return statuses[status] || status;
+        }
+        
+        function getStatusClass(status) {
+            const classes = {
+                'new': 'status-new',
+                'confirmed': 'status-confirmed',
+                'completed': 'status-completed',
+                'cancelled': 'status-cancelled'
+            };
+            return classes[status] || 'status-new';
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '—';
+            const parts = dateString.split('-');
+            if (parts.length === 3) {
+                return `${parts[2]}.${parts[1]}.${parts[0]}`;
+            }
+            return dateString;
+        }
+        
+        function formatPrice(price) {
+            if (price === 0) return 'Бесплатно';
+            return price + ' ₽';
+        }
+        
+        async function loadBookings() {
+            try {
+                const bookingsRef = collection(db, 'bookings');
+                const q = query(bookingsRef, orderBy('createdAt', 'desc'));
+                const querySnapshot = await getDocs(q);
+                
+                allBookings = [];
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    allBookings.push({
+                        id: doc.id,
+                        ...data,
+                        createdAt: data.createdAt?.toDate?.() || new Date()
+                    });
+                });
+                
+                updateStats();
+                applyFilters();
+                
+            } catch (error) {
+                console.error('Ошибка загрузки записей:', error);
+                showNotification('Ошибка загрузки записей', true);
+            }
+        }
+        
+        function updateStats() {
+            const totalCount = document.getElementById('totalCount');
+            const newCount = document.getElementById('newCount');
+            
+            if (totalCount) totalCount.textContent = allBookings.length;
+            if (newCount) newCount.textContent = allBookings.filter(b => b.status === 'new').length;
+        }
+        
+        function applyFilters() {
+            const statusFilter = document.getElementById('statusFilter')?.value || 'all';
+            const dateFrom = document.getElementById('dateFrom')?.value;
+            const dateTo = document.getElementById('dateTo')?.value;
+            const searchQuery = document.getElementById('searchInput')?.value.toLowerCase() || '';
+            
+            let filtered = [...allBookings];
+            
+            if (statusFilter !== 'all') {
+                filtered = filtered.filter(b => b.status === statusFilter);
+            }
+            
+            if (dateFrom) {
+                filtered = filtered.filter(b => b.date >= dateFrom);
+            }
+            
+            if (dateTo) {
+                filtered = filtered.filter(b => b.date <= dateTo);
+            }
+            
+            if (searchQuery) {
+                filtered = filtered.filter(b => 
+                    (b.clientName && b.clientName.toLowerCase().includes(searchQuery)) ||
+                    (b.clientPhone && b.clientPhone.toLowerCase().includes(searchQuery))
+                );
+            }
+            
+            renderTable(filtered);
+        }
+        
+        function renderTable(bookings) {
+            const tbody = document.getElementById('bookingsTableBody');
+            if (!tbody) return;
+            
+            if (bookings.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="loading">📭 Нет записей</td></tr>';
+                return;
+            }
+            
+            function escapeHtml(text) {
+                if (!text) return '';
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+            
+            tbody.innerHTML = bookings.map(booking => `
+                <tr>
+                    <td>
+                        <strong>${formatDate(booking.date)}</strong><br>
+                        <span style="color: #d4af37;">⏰ ${booking.time || '—'}</span>
+                    </td>
+                    <td>
+                        <strong>${escapeHtml(booking.clientName || '—')}</strong><br>
+                        <span style="font-size: 12px; color: #888;">📞 ${escapeHtml(booking.clientPhone || '—')}</span>
+                    </td>
+                    <td>
+                        ${escapeHtml(booking.serviceName || '—')}<br>
+                        <span style="font-size: 11px; color: #999;">ID: ${booking.serviceId || '—'}</span>
+                    </td>
+                    <td>${formatPrice(booking.servicePrice)}</td>
+                    <td style="max-width: 200px;">
+                        ${booking.comment ? `<span style="font-size: 12px;">💬 ${escapeHtml(booking.comment.substring(0, 50))}${booking.comment.length > 50 ? '...' : ''}</span>` : '—'}
+                        ${booking.masterComment ? `<br><span style="font-size: 11px; color: #d4af37;">📝 ${escapeHtml(booking.masterComment.substring(0, 40))}</span>` : ''}
+                    </td>
+                    <td>
+                        <span class="status ${getStatusClass(booking.status)}">${getStatusText(booking.status)}</span>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="action-btn btn-edit" onclick="openEditModal('${booking.id}')" title="Редактировать">✏️</button>
+                            <button class="action-btn btn-delete" onclick="deleteBooking('${booking.id}')" title="Удалить">🗑️</button>
+                        </div>
+                    </td>
+                </tr>
+            `).join('');
+        }
+        
+        window.openEditModal = function(bookingId) {
+            const booking = allBookings.find(b => b.id === bookingId);
+            if (!booking) return;
+            
+            currentEditId = bookingId;
+            const editStatus = document.getElementById('editStatus');
+            const editComment = document.getElementById('editComment');
+            
+            if (editStatus) editStatus.value = booking.status || 'new';
+            if (editComment) editComment.value = booking.masterComment || '';
+            
+            const modal = document.getElementById('editModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        
+        window.closeEditModal = function() {
+            const modal = document.getElementById('editModal');
+            if (modal) modal.style.display = 'none';
+            currentEditId = null;
+        }
+        
+        window.saveBookingChanges = async function() {
+            if (!currentEditId) return;
+            
+            const newStatus = document.getElementById('editStatus')?.value;
+            const newComment = document.getElementById('editComment')?.value;
+            
+            try {
+                const bookingRef = doc(db, 'bookings', currentEditId);
+                await updateDoc(bookingRef, {
+                    status: newStatus,
+                    masterComment: newComment,
+                    updatedAt: new Date()
+                });
+                
+                showNotification('✅ Запись обновлена');
+                await loadBookings();
+                closeEditModal();
+                
+            } catch (error) {
+                console.error('Ошибка обновления:', error);
+                showNotification('Ошибка при обновлении', true);
+            }
+        }
+        
+        window.deleteBooking = async function(bookingId) {
+            if (!confirm('Вы уверены, что хотите удалить эту запись? Это действие нельзя отменить.')) return;
+            
+            try {
+                const bookingRef = doc(db, 'bookings', bookingId);
+                await deleteDoc(bookingRef);
+                
+                showNotification('🗑️ Запись удалена');
+                await loadBookings();
+                
+            } catch (error) {
+                console.error('Ошибка удаления:', error);
+                showNotification('Ошибка при удалении', true);
+            }
+        }
+        
+        // Навешиваем обработчики
+        document.getElementById('applyFilters')?.addEventListener('click', () => applyFilters());
+        document.getElementById('resetFilters')?.addEventListener('click', () => {
+            const statusFilter = document.getElementById('statusFilter');
+            const dateFrom = document.getElementById('dateFrom');
+            const dateTo = document.getElementById('dateTo');
+            const searchInput = document.getElementById('searchInput');
+            
+            if (statusFilter) statusFilter.value = 'all';
+            if (dateFrom) dateFrom.value = '';
+            if (dateTo) dateTo.value = '';
+            if (searchInput) searchInput.value = '';
+            
+            applyFilters();
+        });
+        
+        document.getElementById('searchInput')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') applyFilters();
+        });
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('editModal');
+            if (event.target === modal) {
+                closeEditModal();
+            }
+        }
+        
+        loadBookings();
+    </script>
+</body>
+</html>
