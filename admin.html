@@ -401,7 +401,7 @@
     <div class="admin-container">
         <div class="admin-header">
             <div class="admin-title">
-                <h1>👑 Админ-панель | Daria Nails</h1>
+                <h1>Админ-панель | Daria Nails</h1>
                 <p>Управление записями клиентов</p>
             </div>
             <div class="admin-stats">
@@ -440,8 +440,8 @@
                 <label>Поиск по имени/телефону</label>
                 <input type="text" id="searchInput" placeholder="Имя или телефон...">
             </div>
-            <button class="btn-filter" id="applyFilters">🔍 Применить</button>
-            <button class="btn-filter btn-reset" id="resetFilters">🔄 Сбросить</button>
+            <button class="btn-filter" id="applyFilters">Применить</button>
+            <button class="btn-filter btn-reset" id="resetFilters">Сбросить</button>
         </div>
 
         <div class="bookings-table-container">
@@ -472,9 +472,9 @@
                 <label>Статус записи</label>
                 <select id="editStatus">
                     <option value="new">🟡 Новая</option>
-                    <option value="confirmed">✅ Подтвержденная</option>
+                    <option value="confirmed">✅ Подтверждённая</option>
                     <option value="completed">⭐ Выполненная</option>
-                    <option value="cancelled">❌ Отмененная</option>
+                    <option value="cancelled">❌ Отменённая</option>
                 </select>
             </div>
             <div class="form-group">
@@ -510,9 +510,9 @@
         function getStatusText(status) {
             const statuses = {
                 'new': '🟡 Новая',
-                'confirmed': '✅ Подтвержденная',
+                'confirmed': '✅ Подтверждённая',
                 'completed': '⭐ Выполненная',
-                'cancelled': '❌ Отмененная'
+                'cancelled': '❌ Отменённая'
             };
             return statuses[status] || status;
         }
